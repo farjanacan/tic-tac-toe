@@ -36,6 +36,7 @@ for (let div of allDivs) {
             // console.log('Next Player', nextPlayer)
             findPlayer.append('  Next Player: ', nextPlayer)
         }
+
         checkWinner();
     });
 }
@@ -97,10 +98,48 @@ function getPlayerAtColumn(columnNumber) {
     }
 }
 
+function getPlayerAtRightDiagonal(rightBoxNumber) {
+    let blockOne = rightBoxNumber;
+    let pB1 = getPlayerAtBlock(blockOne)
+
+    let blockTwo = blockOne + 2;
+    let pB2 = getPlayerAtBlock(blockTwo)
+
+    let blockThree = blockTwo + 2;
+    let pB3 = getPlayerAtBlock(blockThree)
+
+    if (pB1 === pB2 && pB2 === pB3) {
+        if (pB1 === '') {
+            return null
+        }
+        return pB1
+    } else {
+        return null
+    }
+}
+
+function getPlayerAtLeftDiagonal(LeftBoxNumber) {
+    let blockOne = LeftBoxNumber;
+    let pB1 = getPlayerAtBlock(blockOne)
+
+    let blockTwo = blockOne + 4;
+    let pB2 = getPlayerAtBlock(blockTwo)
+
+    let blockThree = blockTwo + 4;
+    let pB3 = getPlayerAtBlock(blockThree)
+
+    if (pB1 === pB2 && pB2 === pB3) {
+        if (pB1 === '') {
+            return null
+        }
+        return pB1
+    } else {
+        return null
+    }
+}
 
 function checkWinner() {
     //check row for winner
-
     let playerAtRow1 = getPlayerAtRow(1);
     // console.log('player at row 1 ', playerAtRow1)
     let playerAtRow2 = getPlayerAtRow(2);
@@ -123,15 +162,30 @@ function checkWinner() {
     let playerAtColumn2 = getPlayerAtColumn(2)
     let playerAtColumn3 = getPlayerAtColumn(3)
 
-    if(playerAtColumn1 != null){
+    if (playerAtColumn1 != null) {
         console.log('winner is: ', playerAtColumn1)
         isGameOver = true;
-    } else if(playerAtColumn2 != null){
+    } else if (playerAtColumn2 != null) {
         console.log('winner is: ', playerAtColumn2)
         isGameOver = true;
-    } else if(playerAtColumn3 != null){
+    } else if (playerAtColumn3 != null) {
         console.log('winner is: ', playerAtColumn3)
         isGameOver = true;
     }
+    //check right diagonal for winner
+    let playerAtRightDiagonal = getPlayerAtRightDiagonal(3)
+    
+    if (playerAtRightDiagonal != null) {
+        console.log('winner is: ', playerAtRightDiagonal)
+        isGameOver = true;
+    }
+    //check left diagonal for winner
+    let playerAtLeftDiagonal = getPlayerAtLeftDiagonal(1)
+
+    if (playerAtLeftDiagonal != null) {
+        console.log('winner is: ', playerAtLeftDiagonal)
+        isGameOver = true;
+    }
+
 
 }
